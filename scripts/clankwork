@@ -1,0 +1,32 @@
+#!/bin/bash
+# clankwork - Qwen Telegram daemon manager
+# Usage: clankwork {start|stop|restart}
+
+SCRIPTS_DIR="$HOME/scripts"
+
+case "$1" in
+    start)
+        exec "$SCRIPTS_DIR/clankwork-start.sh"
+        ;;
+    stop)
+        exec "$SCRIPTS_DIR/clankwork-stop.sh"
+        ;;
+    restart)
+        exec "$SCRIPTS_DIR/clankwork-restart.sh"
+        ;;
+    status)
+        if ps aux | grep -E "qwen channel|daemon-wrapper" | grep -v grep > /dev/null 2>&1; then
+            echo "[clankwork] Running:"
+            ps aux | grep -E "qwen (channel|--acp)|daemon-wrapper" | grep -v grep | awk '{printf "  PID %s  %s%%  %s %s\n", $2, $3, $11, $12}'
+        else
+            echo "[clankwork] Not running."
+        fi
+        ;;
+    update)
+        exec "$SCRIPTS_DIR/clankwork-update.sh"
+        ;;
+    *)
+        echo "Usage: clankwork {start|stop|restart|status|update}"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,125 @@
+{
+  "modelProviders": {
+    "openai": [
+      {
+        "id": "qwen3.6-plus",
+        "name": "Qwen3.6 Plus (DashScope)",
+        "description": "Vision-capable Qwen model via Alibaba Cloud DashScope OpenAI-compatible API",
+        "envKey": "DASHSCOPE_API_KEY",
+        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "generationConfig": {
+          "contextWindowSize": 1000000,
+          "modalities": {
+            "image": true
+          }
+        }
+      }
+    ]
+  },
+  "mcpServers": {
+    "peekaboo": {
+      "command": "peekaboo-mcp",
+      "args": [],
+      "trust": true
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "trust": true
+    },
+    "sequential": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "trust": true,
+      "includeTools": [
+        "sequentialthinking"
+      ]
+    },
+    "ddg": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@oevortex/ddg_search@latest"
+      ],
+      "trust": true
+    }
+  },
+  "tools": {
+    "tools.approvalMode": "yolo",
+    "autoAccept": true,
+    "shell": {
+      "showColor": true,
+      "enableInteractiveShell": true
+    },
+    "approvalMode": "yolo"
+  },
+  "general": {
+    "enableAutoUpdate": true,
+    "verboseOutput": false
+  },
+  "ui": {
+    "hideTips": true,
+    "showMemoryUsage": true,
+    "showLineNumbers": true,
+    "theme": "Dracula",
+    "footer": {
+      "hideSandboxStatus": true
+    },
+    "showCitations": true,
+    "accessibility": {
+      "enableLoadingPhrases": true
+    },
+    "enableWelcomeBack": true,
+    "enableUserFeedback": true,
+    "feedbackLastShownTimestamp": 0
+  },
+  "security": {
+    "folderTrust": {
+      "enabled": true
+    }
+  },
+  "experimental": {
+    "visionModelPreview": true,
+    "skills": true,
+    "cron": true
+  },
+  "$version": 3,
+  "model": {
+    "enableOpenAILogging": false,
+    "generationConfig": {
+      "maxRetries": 5
+    },
+    "name": "{{QWEN_MODEL_NAME}}",
+    "openAILoggingDir": "false"
+  },
+  "context": {
+    "loadMemoryFromIncludeDirectories": true
+  },
+  "mcp": {
+    "excluded": [
+      "sequential",
+      "ddg"
+    ]
+  },
+  "agents": {
+    "arena": {
+      "preserveArtifacts": true
+    }
+  },
+  "channels": {
+    "qwen": {
+      "type": "telegram",
+      "token": "{{TELEGRAM_BOT_TOKEN}}",
+      "senderPolicy": "allowlist",
+      "allowedUsers": ["{{TELEGRAM_USER_ID}}"],
+      "approvalMode": "yolo",
+      "sessionScope": "user",
+      "cwd": "{{HOME_DIR}}"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.DS_Store
+._*
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.log
+*.mov
+*.tmp
+node_modules/
+.qwen/
+oauth_creds.json
+sessions.json
+sessions.backup.json
